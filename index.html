@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#07100a">
+  <title>TFC — Jersey Registration</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <div class="badge">TFC</div>
+      <p class="eyebrow">NEW SEASON · NEW KIT</p>
+      <h1>Claim your<br><span>jersey.</span></h1>
+      <p class="intro">Enter your name, size and jersey number.</p>
+
+      <form id="jerseyForm">
+        <label><span>PLAYER NAME</span><input id="name" name="name" maxlength="50" placeholder="Your name" autocomplete="name" required></label>
+        <label><span>JERSEY SIZE</span>
+          <select id="size" name="size" required>
+            <option value="" selected disabled>Select size</option>
+            <option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option>
+          </select>
+        </label>
+        <label><span>JERSEY NUMBER</span><input id="number" name="number" type="number" min="0" max="99" inputmode="numeric" placeholder="10" required><small>Numbers can be shared by multiple players.</small></label>
+        <button id="submitBtn" type="submit"><span>SUBMIT JERSEY</span><span>→</span></button>
+        <p id="message" class="message" role="status"></p>
+      </form>
+    </section>
+
+    <section class="squad">
+      <div class="squad-head">
+        <div><p class="eyebrow">REGISTERED PLAYERS</p><h2>The squad.</h2></div>
+        <div id="count" class="count">0</div>
+      </div>
+      <div class="table-head"><span>PLAYER</span><span>SIZE</span><span>NO.</span></div>
+      <div id="players" class="players"><p class="empty">Loading squad...</p></div>
+    </section>
+    <footer>TFC · 2026</footer>
+  </main>
+  <script src="/app.js"></script>
+</body>
+</html>
