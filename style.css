@@ -28,3 +28,8 @@
 .message.editing {
   color: var(--accent);
 }
+.club-place {
+  display: inline-block;
+  color: var(--text);
+  font-size: 0.82em;
+}
