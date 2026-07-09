@@ -14,54 +14,35 @@ function escapeHtml(value) {
 
 async function loadPlayers() {
   try {
-    const response = await fetch("/api/players", {
-      cache: "no-store"
-    });
-
+    const response = await fetch("/api/players", { cache: "no-store" });
     const data = await response.json();
 
-    if (!response.ok) {
-      throw new Error();
-    }
+    if (!response.ok) throw new Error();
 
     count.textContent = data.players.length;
 
     players.innerHTML = data.players.length
       ? data.players.map(p => `
         <div class="player">
-
-          <div class="player-name-wrap">
-            <div class="player-name">
-              ${escapeHtml(p.name)}
-            </div>
-
-            <button
-              class="edit-player"
-              type="button"
-              data-id="${p.id}"
-              data-name="${escapeHtml(p.name)}"
-              data-size="${escapeHtml(p.size)}"
-              data-number="${p.jersey_number}"
-            >
-              EDIT
-            </button>
-          </div>
-
-          <div class="player-size">
-            ${escapeHtml(p.size)}
-          </div>
-
-          <div class="player-number">
-            ${p.jersey_number}
-          </div>
-
+          <div class="player-name">${escapeHtml(p.name)}</div>
+          <div class="player-size">${escapeHtml(p.size)}</div>
+          <div class="player-number">${p.jersey_number}</div>
+          <button
+            class="edit-player"
+            type="button"
+            data-id="${p.id}"
+            data-name="${escapeHtml(p.name)}"
+            data-size="${escapeHtml(p.size)}"
+            data-number="${p.jersey_number}"
+          >
+            EDIT
+          </button>
         </div>
       `).join("")
       : `<p class="empty">No players yet. Be the first.</p>`;
 
   } catch {
-    players.innerHTML =
-      `<p class="empty">Could not load the squad.</p>`;
+    players.innerHTML = `<p class="empty">Could not load the squad.</p>`;
   }
 }
 
@@ -96,7 +77,6 @@ form.addEventListener("submit", async e => {
   message.className = "message";
 
   button.disabled = true;
-
   button.firstElementChild.textContent = editingId
     ? "UPDATING..."
     : "SAVING...";
@@ -109,9 +89,7 @@ form.addEventListener("submit", async e => {
 
   try {
     const response = await fetch(
-      editingId
-        ? `/api/update?id=${editingId}`
-        : "/api/register",
+      editingId ? `/api/update?id=${editingId}` : "/api/register",
       {
         method: editingId ? "PUT" : "POST",
         headers: {
@@ -124,15 +102,12 @@ form.addEventListener("submit", async e => {
     const result = await response.json();
 
     if (!response.ok) {
-      throw new Error(
-        result.error || "Could not save jersey."
-      );
+      throw new Error(result.error || "Could not save jersey.");
     }
 
     const wasEditing = editingId !== null;
 
     editingId = null;
-
     form.reset();
 
     message.textContent = wasEditing
@@ -146,7 +121,6 @@ form.addEventListener("submit", async e => {
   } catch (error) {
     message.textContent = error.message;
     message.className = "message error";
-
   } finally {
     button.disabled = false;
     button.firstElementChild.textContent = "SUBMIT JERSEY";
