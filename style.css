@@ -20,3 +20,23 @@
 .message.editing {
   color: #a6ff2f;
 }
+.player {
+  grid-template-columns: 1fr 70px 70px auto;
+}
+
+.edit-player {
+  margin: 0;
+  padding: 8px 12px;
+  width: auto;
+  justify-self: end;
+}
+
+@media (max-width: 480px) {
+  .player {
+    grid-template-columns: 1fr 54px 54px auto;
+  }
+
+  .edit-player {
+    padding: 7px 9px;
+  }
+}
