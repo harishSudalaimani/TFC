@@ -1,35 +1,376 @@
-:root{--bg:#07100a;--panel:#0c1810;--line:#223328;--text:#f4f7f4;--muted:#91a096;--accent:#b8ff3d;font-family:Inter,system-ui,sans-serif}*{box-sizing:border-box}body{margin:0;min-height:100vh;color:var(--text);background:radial-gradient(circle at 80% 10%,rgba(184,255,61,.1),transparent 30rem),linear-gradient(135deg,#050a07,var(--bg))}body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.12;background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);background-size:42px 42px}.page{width:min(100% - 32px,720px);margin:auto;padding:48px 0 24px;position:relative}.hero,.squad{border:1px solid var(--line);background:rgba(12,24,16,.88);backdrop-filter:blur(12px);padding:clamp(24px,6vw,48px)}.badge{width:58px;height:58px;display:grid;place-items:center;border-radius:50%;border:2px solid var(--accent);color:var(--accent);font-family:"Archivo Black";margin-bottom:42px}.eyebrow{color:var(--accent);font-size:11px;font-weight:800;letter-spacing:.18em;margin:0 0 12px}h1,h2{font-family:"Archivo Black";text-transform:uppercase;letter-spacing:-.055em;line-height:.88;margin:0}h1{font-size:clamp(56px,15vw,96px)}h1 span{color:var(--accent)}h2{font-size:clamp(42px,10vw,68px)}.intro{color:var(--muted);margin:24px 0 38px;line-height:1.6}form{display:grid;gap:22px}label{display:grid;gap:9px}label>span,.table-head{font-size:11px;font-weight:800;letter-spacing:.14em}input,select{width:100%;border:1px solid var(--line);padding:16px;background:#08110b;color:var(--text);font:inherit;font-size:16px;outline:none;border-radius:0}input:focus,select:focus{border-color:var(--accent)}small{color:var(--muted);font-size:12px}button{border:0;background:var(--accent);color:#08110b;padding:18px 20px;font:800 13px Inter;letter-spacing:.08em;cursor:pointer;margin-top:8px;display:flex;justify-content:space-between}.message{min-height:20px;margin:0;font-size:13px}.message.error{color:#ff8f8f}.message.ok{color:var(--accent)}.squad{margin-top:18px}.squad-head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:36px}.count{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;background:var(--accent);color:#08110b;font-weight:800;font-size:20px}.table-head,.player{display:grid;grid-template-columns:1fr 70px 70px;gap:12px;align-items:center}.table-head{color:var(--muted);padding:0 14px 12px}.table-head span:nth-child(n+2){text-align:center}.player{border-top:1px solid var(--line);padding:16px 14px}.player-name{font-weight:700;text-transform:uppercase;overflow-wrap:anywhere}.player-size{text-align:center;color:var(--muted);font-weight:700}.player-number{text-align:center;color:var(--accent);font-family:"Archivo Black";font-size:24px}.empty{color:var(--muted);text-align:center;padding:28px 0;margin:0}footer{color:#526057;text-align:center;font-size:11px;letter-spacing:.16em;padding:20px}@media(max-width:480px){.page{width:100%;padding:0}.hero,.squad{border-width:0 0 1px}.squad{margin-top:10px}.table-head,.player{grid-template-columns:1fr 54px 54px}}
+/* ============================================================
+   TFC — Thirunagar Football Club
+   Theme: Night match under the floodlights. (Enhanced Edition)
+   Deep pitch green, mown-turf stripes, a center-circle behind
+   the crest, stadium LED glows, and sweeping light beams.
+   ============================================================ */
+
+:root {
+  --pitch-black: #060f0a;
+  --pitch: #0f2419;
+  --turf-a: #123423;
+  --turf-b: #0c1e15;
+  --line: #25422f;
+  --chalk: #f2efe4;
+  --muted: #84987d;
+  --floodlight: #ffb703;
+  --floodlight-dim: #8a6a1a;
+  --card-red: #ff5c4d;
+  font-family: Inter, system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--chalk);
+  background-color: var(--pitch-black);
+  background-image:
+    radial-gradient(ellipse 70rem 40rem at 85% -10%, rgba(255, 183, 3, 0.14), transparent 60%),
+    radial-gradient(ellipse 50rem 30rem at -10% 110%, rgba(255, 183, 3, 0.06), transparent 55%),
+    repeating-linear-gradient(90deg, var(--turf-a) 0 64px, var(--turf-b) 64px 128px);
+  overflow-x: hidden;
+}
+
+/* faint chalk grid, like lines painted on turf */
+body:before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: 
+    linear-gradient(var(--chalk) 1px, transparent 1px),
+    linear-gradient(90deg, var(--chalk) 1px, transparent 1px);
+  background-size: 48px 48px;
+  z-index: 0;
+}
+
+/* Atmospheric sweeping floodlight beam */
+body:after {
+  content: "";
+  position: fixed;
+  top: -10%; left: -50%; width: 200%; height: 120%;
+  background: conic-gradient(from 180deg at 50% -10%, transparent 42%, rgba(255, 183, 3, 0.03) 48%, rgba(255, 183, 3, 0.07) 50%, rgba(255, 183, 3, 0.03) 52%, transparent 58%);
+  pointer-events: none;
+  z-index: 0;
+  animation: sweep 14s ease-in-out infinite alternate;
+}
+
+@keyframes sweep {
+  0% { transform: rotate(-8deg); }
+  100% { transform: rotate(8deg); }
+}
+
+.page {
+  width: min(100% - 32px, 720px);
+  margin: auto;
+  padding: 48px 0 24px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero, .squad {
+  border: 1px solid var(--line);
+  background: rgba(9, 20, 14, 0.86);
+  backdrop-filter: blur(12px);
+  padding: clamp(24px, 6vw, 48px);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+/* center-circle + halfway line, like standing at kickoff */
+.hero:before {
+  content: "";
+  position: absolute;
+  top: -120px; right: -120px;
+  width: 340px; height: 340px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(242, 239, 228, 0.08);
+  pointer-events: none;
+}
+.hero:after {
+  content: "";
+  position: absolute;
+  top: -120px; right: 34px;
+  width: 1.5px; height: 340px;
+  background: rgba(242, 239, 228, 0.08);
+  pointer-events: none;
+}
+
+.badge {
+  width: 58px;
+  height: 58px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 2px solid var(--floodlight);
+  color: var(--floodlight);
+  font-family: "Archivo Black";
+  margin-bottom: 42px;
+  position: relative;
+  z-index: 1;
+  background: var(--pitch-black);
+  box-shadow: 0 0 15px rgba(255, 183, 3, 0.15);
+}
+
+/* Rotating dashed ring for pre-match energy */
+.badge::after {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 1px dashed rgba(255, 183, 3, 0.5);
+  animation: spin 20s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
+
+.eyebrow {
+  color: var(--floodlight);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  margin: 0 0 12px;
+  position: relative;
+  z-index: 1;
+}
+
+h1, h2 {
+  font-family: "Archivo Black";
+  text-transform: uppercase;
+  letter-spacing: -0.055em;
+  line-height: 0.88;
+  margin: 0;
+  position: relative;
+  z-index: 1;
+}
+h1 { font-size: clamp(56px, 15vw, 96px); text-shadow: 2px 4px 10px rgba(0,0,0,0.5); }
+h1 span { color: var(--floodlight); }
+h2 { font-size: clamp(42px, 10vw, 68px); }
+
+.club-place {
+  display: inline-block;
+  color: var(--chalk);
+  font-size: 0.82em;
+}
+
+.intro {
+  color: var(--muted);
+  margin: 24px 0 38px;
+  line-height: 1.6;
+  position: relative;
+  z-index: 1;
+}
+
+form { display: grid; gap: 22px; position: relative; z-index: 1; }
+
+label { display: grid; gap: 9px; }
+label > span, .table-head {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+}
+
+input, select {
+  width: 100%;
+  border: 1px solid var(--line);
+  padding: 16px;
+  background: rgba(6, 15, 10, 0.8);
+  color: var(--chalk);
+  font: inherit;
+  font-size: 16px;
+  outline: none;
+  border-radius: 0;
+  transition: all 0.2s ease;
+}
+input::placeholder { color: #4d5f4c; }
+
+input:focus, select:focus, input:focus-visible, select:focus-visible {
+  border-color: var(--floodlight);
+  background: var(--pitch-black);
+  box-shadow: 0 0 0 3px rgba(255, 183, 3, 0.18), inset 0 0 12px rgba(255, 183, 3, 0.05);
+}
+
+small { color: var(--muted); font-size: 12px; }
+
+/* Enhanced Button with subtle light sweep */
+button {
+  position: relative;
+  overflow: hidden;
+  border: 0;
+  background: var(--floodlight);
+  color: var(--pitch-black);
+  padding: 18px 20px;
+  font: 800 13px Inter;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  margin-top: 8px;
+  display: flex;
+  justify-content: space-between;
+  transition: filter 0.15s ease, transform 0.15s ease, box-shadow 0.2s;
+  box-shadow: 0 4px 15px rgba(255, 183, 3, 0.2);
+}
+
+button::before {
+  content: "";
+  position: absolute;
+  top: 0; left: -100%;
+  width: 50%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transform: skewX(-20deg);
+  animation: shine 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes shine {
+  0%, 60% { left: -100%; }
+  100% { left: 200%; }
+}
+
+button:hover { filter: brightness(1.08); box-shadow: 0 6px 20px rgba(255, 183, 3, 0.35); }
+button:active { transform: translateY(1px); }
+button:focus-visible { outline: 2px solid var(--chalk); outline-offset: 3px; }
+
+.message { min-height: 20px; margin: 0; font-size: 13px; font-weight: 600; }
+.message.error { color: var(--card-red); text-shadow: 0 0 8px rgba(255, 92, 77, 0.3); }
+.message.ok { color: var(--floodlight); }
+.message.editing { color: var(--floodlight); }
+
+.squad { margin-top: 18px; }
+
+.squad-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 36px;
+}
+
+/* Stadium Scoreboard Count */
+.count {
+  width: 58px; height: 58px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--floodlight);
+  color: var(--pitch-black);
+  font-family: "Archivo Black";
+  font-size: 20px;
+  box-shadow: 0 0 15px rgba(255, 183, 3, 0.3), inset 0 2px 4px rgba(255,255,255,0.4);
+}
+
+.table-head, .player {
+  display: grid;
+  grid-template-columns: 1fr 70px 70px;
+  gap: 12px;
+  align-items: center;
+}
+
+.table-head { padding: 0 14px 12px; }
+.table-head span:nth-child(n+2) { text-align: center; }
+
+.player {
+  border-top: 1px solid var(--line);
+  padding: 16px 14px;
+  position: relative;
+  transition: transform 0.2s ease, background 0.2s ease;
+  border-left: 0px solid transparent; /* Prepare for hover */
+}
+
+.player:nth-child(even) { background: rgba(255, 183, 3, 0.02); }
+
+/* Tactical player hover effect with jersey mesh texture */
+.player:hover {
+  transform: translateX(4px);
+  background: rgba(255, 183, 3, 0.06);
+  border-left: 3px solid var(--floodlight);
+  border-top-color: transparent;
+}
+.player:hover::before {
+  content: "";
+  position: absolute; inset: 0;
+  background-image: radial-gradient(var(--chalk) 0.5px, transparent 0.5px);
+  background-size: 4px 4px;
+  opacity: 0.06;
+  pointer-events: none;
+}
+
 .player-name-wrap {
   display: flex;
   align-items: center;
   gap: 10px;
   min-width: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.player-name {
+  font-weight: 700;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+
+.player-size {
+  text-align: center; color: var(--muted); font-weight: 700;
+  position: relative; z-index: 1;
+}
+
+/* Digital LED numbers */
+.player-number {
+  text-align: center;
+  color: var(--floodlight);
+  font-family: "Archivo Black";
+  font-size: 24px;
+  letter-spacing: -0.03em;
+  position: relative;
+  z-index: 1;
+  text-shadow: 0 0 10px rgba(255, 183, 3, 0.35), 0 0 20px rgba(255, 183, 3, 0.15);
 }
 
 .edit-player {
-  flex: 0 0 auto;
-  margin: 0;
-  width: auto;
+  flex: 0 0 auto; margin: 0; width: auto;
   padding: 5px 8px;
   background: transparent;
   border: 1px solid var(--line);
-  color: var(--accent);
+  color: var(--floodlight);
   font: 900 9px Inter;
   letter-spacing: 0.08em;
   cursor: pointer;
+  transition: all 0.15s ease;
 }
-
 .edit-player:hover {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: #07140a;
+  background: var(--floodlight);
+  border-color: var(--floodlight);
+  color: var(--pitch-black);
+  box-shadow: 0 0 10px rgba(255, 183, 3, 0.3);
 }
 
-.message.editing {
-  color: var(--accent);
+.empty { color: var(--muted); text-align: center; padding: 28px 0; margin: 0; }
+
+footer {
+  color: #526357;
+  text-align: center;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  padding: 20px;
+  position: relative;
+  z-index: 1;
 }
-.club-place {
-  display: inline-block;
-  color: var(--text);
-  font-size: 0.82em;
+
+@media(prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}
+
+@media(max-width: 480px) {
+  .page { width: 100%; padding: 0; }
+  .hero, .squad { border-width: 0 0 1px; box-shadow: none; }
+  .squad { margin-top: 10px; }
+  .table-head, .player { grid-template-columns: 1fr 54px 54px; }
+  .hero:before, .hero:after { display: none; }
+  body:after { display: none; /* Turn off sweeping light on small screens */ }
 }
