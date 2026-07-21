@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS registrations (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   name TEXT NOT NULL,
-  size TEXT NOT NULL CHECK (size IN ('S','M','L','XL','XXL')),
+  size TEXT NOT NULL CHECK (size IN ('S','M','L','XL','XXL','XXXL','XXXXL')),
   jersey_number INTEGER NOT NULL CHECK (jersey_number BETWEEN 0 AND 99),
   created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );

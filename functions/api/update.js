@@ -6,7 +6,7 @@ export async function onRequestPut(context) {
     const { name, size, number } = await context.request.json();
 
     const cleanName = String(name || "").trim();
-    const allowed = ["S", "M", "L", "XL", "XXL", "XXXL"];
+    const allowed = ["S", "M", "L", "XL", "XXL", "XXXL", "XXXXL"];
     const jerseyNumber = Number(number);
 
     if (!Number.isInteger(id) || id < 1) {
